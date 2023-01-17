@@ -1,0 +1,31 @@
+//Declarative Way
+
+pipeline{
+	agent any
+	
+	tools{
+		maven "Maven-3.8.7"
+	}
+
+// Triiger jobs perodically 	
+//	triggers {
+  //  pollSCM '* * * * *'
+//    cron '* * * * *'
+  //  }
+
+stages{
+
+	stage('checkoutcode'){
+		steps{
+			git credentialsId: '526e845d-c917-4c82-adf2-fe512f5efb41', url: 'https://github.com/guru91197/maven-web-application.git'
+		}
+	}
+	
+	stage('build'){
+		steps{
+			sh "mvn clean package"
+	   }
+	}
+}
+	
+}//closing pipeline
